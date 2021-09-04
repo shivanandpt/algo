@@ -1,14 +1,11 @@
-const readline = require('readline');
-let arrLength, arr; 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
+const io = require('./handleIO');
+const handleIO = new io({
+    algoName: `Insertion sort`,
+    inputInstructions: `Enter the size of the array which to be sorted -------`,
+    exitInstrucitons: 'Enter ctrl + c to exit '
 });
 
-console.log(`-----------------Insertion sort-------------`);
-console.log('Enter array with length to be sorted -------');
-console.log('Enter ctrl + c to exit ')
-
+let arrLength, arr; 
 const insertionSort = function (arr) {
     
     for(let j = 1; j< arr.length; j++) {
@@ -24,9 +21,7 @@ const insertionSort = function (arr) {
     }
     return arr;
 }
-
-rl.on("line", (ln) => {
-    let values = ln.split(" ");
+handleIO.parseValue((values, ln) => {
     if (!arrLength || isNaN(arrLength)) {
         arrLength = parseInt(values[0]);
         if (isNaN(arrLength)) {
@@ -40,21 +35,19 @@ rl.on("line", (ln) => {
 
         if (values.length != arrLength) {
             console.log(`The array must be of length ${arrLength}.`);
-            console.log('Pleae enter the array again');
+            console.log('Please enter the array again');
         } else {
             arr = values.map(x => parseInt(x));
             if(arr.some(x => isNaN(x))) {
                 console.log(`The value entered in array is ${ln} which is invalid`);
-                console.log('Pleae enter the array again');
+                console.log('Please enter the array again');
             } else {
                 console.log(`The array is ${arr}`);
                 console.log(`Sorted array is ${ insertionSort(arr)}`)
                 arrLength = null,
                 arr = null;
-                console.log(`-----------------Insertion sort-------------`);
-                console.log('Enter array with length to be sorted -------');
-                console.log('Enter ctrl + c to exit ')
+                handleIO.printConsole();
             }
         }
     }
-});
+})
