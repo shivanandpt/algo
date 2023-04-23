@@ -1,0 +1,9 @@
+union/out/*
+*.class
+*.iml
+.idea/*
+.lift/*
+union/.idea/*
+*.pdf
+
+
